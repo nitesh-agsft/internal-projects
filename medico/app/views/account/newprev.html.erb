@@ -1,0 +1,24 @@
+<%= form_tag :action => 'create' do %>
+<p><label for = "account">Account No</label>:
+<%= text_field 'account', 'account_no' %></p>
+
+<p><label for = "account_lastname">Lastname</label>:
+<%= text_field 'account', 'lastname' %></p>
+
+<p><label for = "account_firstname">Firstname</label>
+    <%= text_field 'account','firstname' %></p>
+
+<p><label for="account_middlename">Middlename</label>
+    <%= text_field 'account','middlename' %>
+
+<p><label for="account_gender">Gender</label>
+    <%= text_field 'account','gender' %>
+
+<p><label for="account_birthdate">Birthdate</label>
+    <%= text_field 'account','birthdate' %>
+
+<p><label for="account_headofhouse">Head of House</label>
+    <%= text_field 'account','headofhouse' %>
+
+<%= submit_tag "Create" %>
+<% end %>
