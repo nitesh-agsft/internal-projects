@@ -1,5 +1,5 @@
 class AccountController < ApplicationController
-    
+    layout 'standard'
     def update
         @account = Account.find(params[:id])
         if @account.update_attributes(account_params)
@@ -12,6 +12,7 @@ class AccountController < ApplicationController
 
     def create
         @account = Account.new(account_params)
+        puts params[:firstname]
         if @account.save
             redirect_to :action => "view"
         else
@@ -26,6 +27,7 @@ class AccountController < ApplicationController
 
     def new 
         @account = Account.new
+        
         @customer = Customer.all
     end
 
@@ -34,6 +36,11 @@ class AccountController < ApplicationController
     end
     def view
         @account = Account.all
+    end
+    def auto_assign
+        @maxaccount = Account.maximum("account_no")
+        Rails.logger.debug("debug::" + "@maxaccount")
+        #return render 'auto_assign'
     end
 
     def account_params

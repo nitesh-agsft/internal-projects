@@ -58,7 +58,9 @@ Rails.application.routes.draw do
   get "account/view"
   get "account/show"
   get "account/new"
+  get "account/newprev"
   patch "account/update"
   post "account/create"
   get "account/update"
+  get "account/auto_assign"
 end

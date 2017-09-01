@@ -1,77 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%= form_tag({:action => 'create'},:class => "form-horizontal") do |f| %>
 
-<html xmlns = "http://www.w3.org/1999/xhtml">
-
-   <head>
-
-    <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<style>
-        legend {
-            display: block;
-            width: 100%;
-            padding: 0;
-            margin-bottom: 24px;
-            font-size: 37px;
-            line-height: inherit;
-            color: #333;
-            border: 0;
-            border-bottom: 2px solid #e5e5e5;
-            text-align: center;
-        }
-    </style>
-   </head>
-<body onload="checkstatus()">
-    <script>
-        function checkstatus(){
-        console.log(document.getElementById("auto-account").checked);
-    }
-
-    </script>
-    
-<%= form_tag({controller: "account", action: "create"}, method: "post", class: "form-horizontal") do %>
-<form class
     <fieldset>
     
     <!-- Form Name -->
     <legend>Account creation</legend>
-    
+      
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="accountno">Account No.</label>  
+      <label class="col-md-4 control-label" for="account">Account No.</label>  
       <div class="col-md-4">
-      <input id="account_no" name="accountno" type="text" placeholder="xxxxxxx" class="form-control input-md">
+          <%= text_field 'account', 'account_no' ,:class => "form-control input-md" %>
       <span class="help-block">Account no.</span>
       </div>
-      <div class="col-md-4">
-            <input type="checkbox" id="auto-account" checked data-toggle="toggle" data-on="Auto" data-off="Manual" onchange="fetchaccount(event)">
-            <script>
-               function fetchaccount(event){
-                   if (document.getElementById("auto-account").checked){
-                    console.log("onn");
-                   }
-                   else{
-                       console.log("off");
-                   }
-                   
-               } 
-            </script>
+      <div class="col-md-2">
+          <%= button_to "Auto Assign", {:controller => "account", :action => "auto_assign"} , {:method=>:get} %>   
+          
       </div> 
     </div>
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="lastname">Lastname</label>  
+      <label class="col-md-4 control-label" for="account_lastname">Lastname</label>  
       <div class="col-md-4">
       <%= text_field 'account', 'lastname' ,:class => "form-control input-md"%>
       <span class="help-block">input your lastname</span>  
@@ -80,7 +29,7 @@
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="firstname">Firstname</label>  
+      <label class="col-md-4 control-label" for="account_firstname">Firstname</label>  
       <div class="col-md-4">
             <%= text_field 'account', 'firstname' ,:class => "form-control input-md"%>
       <span class="help-block">input your firstname</span>  
@@ -89,7 +38,7 @@
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="middlename">Middlename</label>  
+      <label class="col-md-4 control-label" for="account_middlename">Middlename</label>  
       <div class="col-md-4">
       <%= text_field 'account', 'middlename' ,:class => "form-control input-md"%>
       <span class="help-block">input your middlename</span>  
@@ -98,20 +47,17 @@
     
     <!-- Button Drop Down -->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="gender">Gender</label>
+      <label class="col-md-4 control-label" for="account_gender">Gender</label>
       <div class="col-md-4">
        
-        <select class="form-control" id="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>
+         <%= select('account','gender', ([['Male','Male'],['Female','Female']]),{},{:class => "form-control"}) %>
                    
       </div>
     </div>
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="headofhouse">Head Of House</label>  
+      <label class="col-md-4 control-label" for="account_headofhouse">Head Of House</label>  
       <div class="col-md-4">
             <%= text_field 'account', 'headofhouse' ,:class => "form-control input-md"%>
       <span class="help-block">Enter the name of the head of the house</span>  
@@ -120,7 +66,7 @@
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="birthdate">Birthdate</label>  
+      <label class="col-md-4 control-label" for="account_birthdate">Birthdate</label>  
       <div class="col-md-4">
             <%= text_field 'account', 'birthdate' ,:class => "form-control input-md"%>
       <span class="help-block">Date of birth</span>  
@@ -129,19 +75,14 @@
     
     <!-- Button (Double) -->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="submit"></label>
+      <div class="col-md-4">
+      </div>
       <div class="col-md-2">
-            <%= submit_tag "Create", :class => "btn btn-danger btn-block" %>
+          <%= submit_tag "Create", :class => "btn btn-danger btn-block" %>
             
       </div>
-      <div class="col-md-2">
-      <!--button id="clear" name="clear" class="btn btn-danger btn-block">Clear</button-->
-      </div>
+      
     </div>
     
     </fieldset>
    <% end %>
-     
-</body>
-
-</html>
