@@ -1,0 +1,42 @@
+        <h2>Medical System</h2>
+        <ul class="nav nav-tabs">
+        <li><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
+        <li class="active"><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
+        <li><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
+        <li><a  href="http://localhost:3000/customer/list">Plan List</a></li>
+        </ul>
+        <br>
+        <br>
+<div class="table-responsive">          
+  <table class="table">
+     
+    <thead>
+      <tr>
+        <th>Account No</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Middlename</th>
+        <th>Gender</th>
+        <th>Date of Birth</th>
+        <th>Head of House</th>
+        <th>Edit Account</th>
+        <th>Delete Account</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @account.each do |f|%>
+        <td><%= f.account_no%></td>
+        <td><%= f.firstname%></td>
+        <td><%= f.lastname%></td>
+        <td><%= f.middlename%></td>
+        <td><%= f.gender%></td>
+        <td><%= f.birthdate%></td>
+        <td><%= f.headofhouse%></td>
+        <td><%= link_to "Edit".html_safe, {:action => 'edit', :id => f.id, method: :get}, :class => "btn btn-primary" %></td> 
+        <td><%= link_to "Delete".html_safe, {:action => 'delete', :id => f.id, method: :get}, :class => "btn btn-danger" %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+  </div>

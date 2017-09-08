@@ -1,0 +1,97 @@
+        <h2>Medical System</h2>
+        <ul class="nav nav-tabs">
+        <li class="active"><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
+        <li><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
+        <li><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
+        <li><a  href="http://localhost:3000/customer/list">Plan List</a></li>
+        </ul>
+        <br>
+        <br>
+
+<%= form_tag({:action => 'create'},:class => "form-horizontal") do |f| %>
+
+    <fieldset>
+    
+    <!-- Form Name -->
+    <legend>Account creation</legend>
+      
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account">Account No.</label>  
+      <div class="col-md-4">
+          <%= text_field 'accounts', 'account_no' ,:class => "form-control input-md" %>
+      <span class="help-block">Account no.</span>
+      </div>
+      <div class="col-md-2">
+          <%= link_to "Auto Assign".html_safe, {:action => 'autoassign', method: :get}, :class => "btn btn-primary" %>                    
+      </div> 
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_lastname">Lastname</label>  
+      <div class="col-md-4">
+      <%= text_field 'accounts', 'lastname' ,:class => "form-control input-md"%>
+      <span class="help-block">Input your lastname</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_firstname">Firstname</label>  
+      <div class="col-md-4">
+            <%= text_field 'accounts', 'firstname' ,:class => "form-control input-md"%>
+      <span class="help-block">Input your firstname</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_middlename">Middlename</label>  
+      <div class="col-md-4">
+      <%= text_field 'accounts', 'middlename' ,:class => "form-control input-md"%>
+      <span class="help-block">Input your middlename</span>  
+      </div>
+    </div>
+    
+    <!-- Button Drop Down -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_gender">Gender</label>
+      <div class="col-md-4">
+       
+         <%= select('accounts','gender', ([['Male','Male'],['Female','Female']]),{},{:class => "form-control"}) %>
+                   
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_headofhouse">Head Of House</label>  
+      <div class="col-md-4">
+            <%= text_field 'accounts', 'headofhouse' ,:class => "form-control input-md"%>
+      <span class="help-block">Enter the name of the head of the house</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_birthdate">Birthdate</label>  
+      <div class="col-md-4">
+            <%= date_field 'accounts', 'birthdate', as: :date, value: @account.birthdate.try(:strftime,"%m/%d/%Y"), :class => "form-control input-md" %>
+      <span class="help-block">Date of birth</span>  
+      </div>
+    </div>
+    
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+          <%= submit_tag "Create", :class => "btn btn-success btn-block" %>
+            
+      </div>
+      
+    </div>
+    
+    </fieldset>
+   <% end %>

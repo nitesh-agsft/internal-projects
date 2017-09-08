@@ -1,0 +1,83 @@
+<%= form_for @account,:html =>{:class =>"form-horizontal"}, :url =>{:action => "update", :id => @account} do |f| %>
+
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>Account creation</legend>
+      
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account">Account No.</label>  
+      <div class="col-md-4">
+          <%= f.text_field 'account_no' ,:class => "form-control input-md" %>
+      <span class="help-block">Account no.</span>
+      </div>
+      
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_lastname">Lastname</label>  
+      <div class="col-md-4">
+      <%= f.text_field 'lastname' ,:class => "form-control input-md"%>
+      <span class="help-block">Input your lastname</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_firstname">Firstname</label>  
+      <div class="col-md-4">
+            <%= f.text_field 'firstname' ,:class => "form-control input-md"%>
+      <span class="help-block">Input your firstname</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_middlename">Middlename</label>  
+      <div class="col-md-4">
+      <%= f.text_field 'middlename' ,:class => "form-control input-md"%>
+      <span class="help-block">Input your middlename</span>  
+      </div>
+    </div>
+    
+    <!-- Button Drop Down -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_gender">Gender</label>
+      <div class="col-md-4">
+        <%= f.select('gender', ([['Male','Male'],['Female','Female']]),{:selected =>@account.gender},{:class => "form-control"}) %>
+      <span class="help-block">Gender</span>             
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_headofhouse">Head Of House</label>  
+      <div class="col-md-4">
+            <%= f.text_field  'headofhouse' ,:class => "form-control input-md"%>
+      <span class="help-block">Enter the name of the head of the house</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_birthdate">Birthdate</label>  
+      <div class="col-md-4">
+         <%= f.date_field 'birthdate', :class => "form-control input-md" %>
+      <span class="help-block">Date of birth</span>  
+      </div>
+    </div>
+    
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <div class="col-md-5">
+      </div>
+      <div class="col-md-2">
+          <%= f.submit "Update", :class => "btn btn-success btn-block" %>
+      </div>
+      
+    </div>
+    
+    </fieldset>
+   <% end %>
