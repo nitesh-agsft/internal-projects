@@ -31,13 +31,12 @@ class AccountController < ApplicationController
    
     def edit
         @account = Account.find(params[:id])
-           
     end
    
     def update
         @account = Account.find(params[:id])
         if @account.update_attributes(accountparamsu)
-            redirect_to :action => 'list', :id => @account
+            redirect_to :action => 'list'
         else
             render :action => 'edit'
         end

@@ -12,6 +12,8 @@ class Customers < ActiveRecord::Migration[5.1]
           t.timestamp
       end
   end
+
+    
   def self.down
       drop_table :customers
   end

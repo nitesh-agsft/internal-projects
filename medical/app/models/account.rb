@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-    #belongs_to :customer
+    has_many :customers
     attribute :birthdate, :date
     validates_presence_of :firstname
     validates_presence_of :lastname
