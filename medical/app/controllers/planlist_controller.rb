@@ -15,11 +15,21 @@ class PlanlistController < ApplicationController
     end
     
     def create
-        
+        @createplan = Planlist.new(createparams)
+        if @createplan.save
+            redirect_to :action => 'list'
+        else
+            puts "sorry error"
+        end
+    end
+    
+    def createparams
+        params.require(:planlists).permit(:planid, :planname)
     end
     
     def delete
-        Planlist.find(params[:id]).destroy        
+        Planlist.find(params[:id]).destroy
+        redirect_to :action => "list"
     end
     
     def new

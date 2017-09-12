@@ -20,5 +20,14 @@ Rails.application.routes.draw do
     get 'customer/edit'
     get 'customer/delete'
     get 'customer/autoassign'
+    get 'planlist/new'
+    get 'planlist/edit'
+    get 'planlist/delete'
+    get 'planlist/list'
+    post 'planlist/create'
+    patch 'planlist/update'
+    post 'customer/insert'
+    
+    
     
 end

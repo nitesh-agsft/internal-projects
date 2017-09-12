@@ -3,7 +3,7 @@
         <li><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
         <li><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
         <li class="active"><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
-        <li><a  href="http://localhost:3000/customer/list">Plan List</a></li>
+        <li><a  href="http://localhost:3000/planlist/list">Plan List</a></li>
         </ul>
         <br>
         <br>
@@ -39,7 +39,7 @@
 <legend></legend>
 <% else %>
 
-<%= form_tag({:action => 'add'},:class => "form-horizontal") do |f| %>
+<%= form_tag({:action => 'insert'},:class => "form-horizontal") do |f| %>
 <fieldset>
 
 
@@ -48,7 +48,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Account No</label>  
   <div class="col-md-4">
-  <%= text_field 'customer', 'account_no',:value =>@account_no ,:class => "form-control input-mg" %>
+  <%= text_field 'customers', 'account_no',:value =>@account_no ,:class => "form-control input-mg" %>
   <span class="help-block">Customer's Account No.</span>  
   </div>
 </div>
@@ -56,17 +56,17 @@
 <div class="form-group">
   <label class="col-md-2 control-label" for="textinput">Firstname</label>  
   <div class="col-md-2">
-  <%= text_field 'customer', 'firstname',:value => @firstname ,:class => "form-control input-mg" %>
+  <input type="text" class="form-control input-mg" id="usr" value=<%="#@firstname"%> >
   <span class="help-block">Firstname</span>  
   </div>
   <label class="col-md-1 control-label">Middlename</label>  
   <div class="col-md-2">
-  <%= text_field 'customer', 'lastname',:value => @middlename ,:class => "form-control input-mg" %>
+  <input type="text" class="form-control input-mg" id="usr" value=<%="#@middlename"%>>
   <span class="help-block">Middlename</span>  
   </div>
   <label class="col-md-1 control-label">Lastname</label>  
   <div class="col-md-2">
-  <%= text_field 'customer', 'lastname',:value => @lastname ,:class => "form-control input-mg" %>
+  <input type="text" class="form-control input-mg" id="usr" value=<%="#@lastname"%> >
   <span class="help-block">Lastname</span>  
   </div>  
 </div>    
@@ -74,12 +74,12 @@
 <div class="form-group">
   <label class="col-md-1 control-label" for="textinput">Plan</label>  
   <div class="col-md-4">
-  <%= select('customer','plans', ([['Carry Forward','Insurance'],['Cash','Cash']]),{},{:class => "form-control"}) %>
+  <%= collection_select('customers','plans', Planlist.all, :planname, :planid, {:prompt => true}, {:onchange => "document.getElementById('customers_planname').value=this.value", :class => "form-control input-mg"})%>
   <span class="help-block">Plan id</span>  
   </div>
   <label class="col-md-2 control-label">Plan Name</label>  
   <div class="col-md-4">
-  <%= text_field 'customer', 'planname' ,:class => "form-control input-mg" %>
+  <%= text_field 'customers', 'planname' ,:class => "form-control input-mg", :readonly=>false %>
   <span class="help-block">Plan Name</span>  
   </div>  
 </div>
@@ -87,34 +87,43 @@
 <div class="form-group">
   <label class="col-md-1 control-label" for="textinput">Pay Type</label>  
   <div class="col-md-4">
-  <%= text_field 'customer', 'paytype' ,:class => "form-control input-mg" %>
+  <%= select('customers','paytype', ([['Card/Cash','Card/Cash'],['Health Insurance Claim','Health Insurance Claim']]),{},{:class => "form-control"}) %>
   <span class="help-block">Pay Type card/cash</span>  
   </div>
   <label class="col-md-2 control-label" for="textinput">Plan Type</label>  
   <div class="col-md-4">
-  <%= select('customer','plantype', ([['Insurance','Insurance'],['Third Party Insurance','Third Party Insurance']]),{},{:class => "form-control"}) %>
+  <%= select('customers','plantype', ([['Insurance','Insurance'],['Third Party Insurance','Third Party Insurance']]),{},{:class => "form-control"}) %>
   <span class="help-block">Nature of the Plan</span>  
   </div>    
 </div>
 
-
-
-
 <div class="form-group">
   <label class="col-md-1 control-label" for="textinput">Accounting Method</label>  
   <div class="col-md-4">
-  <%= select('customer','accountingmethod', ([['Carry Forward','Insurance'],['Cash','Cash']]),{},{:class => "form-control"}) %>
+  <%= select('customers','accountingmethod', ([['Carry Forward','Register'],['Health Cover fund','Health Cover Fund']]),{},{:class => "form-control"}) %>
   <span class="help-block">Pick Accounting method</span>  
   </div>
+  <% if @headofhouse.blank? %>
+  <% @hohpresent = "No" %>
   <label class="col-md-2 control-label" for="textinput">Head of House Account no</label>  
   <div class="col-md-4">
-  <%= text_field 'customer', 'headofhouseaccn' ,:class => "form-control input-mg" %>
+  <%= text_field 'customers', 'headofhouseaccn' ,:class => "form-control input-mg", :value =>"None", :disabled => true %>
   <span class="help-block">Account no of head of the house as per registration</span>  
-  </div>    
+  </div>
+  <% else %>
+    <% @hohpresent = "Yes" %>
+  <label class="col-md-2 control-label" for="textinput">Head of House Account no</label>  
+  <div class="col-md-4">
+  <%= text_field 'customers', 'headofhouseaccn' ,:class => "form-control input-mg", :placeholder => "Enter the Account Number of Head of House" %>
+  <span class="help-block">Account no of head of the house as per registration</span>  
+  </div>
+        
 </div>
-
+<% end %>
 <div class="form-group">
-  <div class="col-md-5"></div>
+  <div class="col-md-5">
+    <%= hidden_field 'customers','hohpresent', :value => @hohpresent %>
+    </div>
   <div class="col-md-2">
   <%= submit_tag "Add Plan", :class => "btn btn-success btn-block" %>
   </div>

@@ -3,14 +3,14 @@
         <li class="active"><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
         <li><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
         <li><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
-        <li><a  href="http://localhost:3000/customer/list">Plan List</a></li>
+        <li><a  href="http://localhost:3000/planlist/list">Plan List</a></li>
         </ul>
         <br>
         <br>
 
 <%= form_tag({:action => 'create'},:class => "form-horizontal") do |f| %>
 
-    <fieldset>
+    <fieldset class="col-md-12">
     
     <!-- Form Name -->
     <legend>Account creation</legend>
@@ -84,9 +84,8 @@
     
     <!-- Button (Double) -->
     <div class="form-group">
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-2">
+      
+      <div class="col-md-2 col-md-offset-5">
           <%= submit_tag "Create", :class => "btn btn-success btn-block" %>
       </div>
       

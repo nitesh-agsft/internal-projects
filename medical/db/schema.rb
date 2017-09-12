@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907120501) do
+ActiveRecord::Schema.define(version: 20170912092339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 20170907120501) do
     t.string "accountingmethod", null: false
     t.string "hohpresent", null: false
     t.string "headofhouseaccn"
+  end
+
+  create_table "planlists", force: :cascade do |t|
+    t.integer "planid", null: false
+    t.string "planname", null: false
   end
 
 end

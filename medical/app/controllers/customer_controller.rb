@@ -2,13 +2,11 @@ class CustomerController < ApplicationController
     layout 'standard' 
     
     def list
-        
-       
+            
     end
    
     def show
-        
-       
+         
     end
    
     def new
@@ -23,11 +21,12 @@ class CustomerController < ApplicationController
             @firstname = params[:firstname]
             @middlename = params[:middlename]
             @headofhouse = params[:headofhouse]
-            @account_no = params[:account_no]
+            @account_no = params[:account_no]            
         end            
-            puts @lastname, @firstname, @headofhouse, @account_no
-        
+            puts @lastname, @firstname, @headofhouse, @account_no        
     end
+    
+    
     def paramac
         params.require(:customers).permit(:account_no)
     end
@@ -43,11 +42,7 @@ class CustomerController < ApplicationController
         end
         redirect_to :action => 'new', :account_no => @an, :lastname => @ln, :firstname => @fn, :headofhouse => @hh, :middlename => @mn
     end
-    
-    def accountparams
-         
-    end
-   
+           
     def edit
           
     end
@@ -55,20 +50,25 @@ class CustomerController < ApplicationController
     def update
         
     end
-    def accountparamsu
-         
-    end
-   
+    
     def delete
-        
-       
+           
     end
     
     def add
         
     end
+    def insert
+        @accninsert = Customer.new(fetchaccount) 
+        if @accninsert.save    
+        redirect_to :action => 'new', :controller => 'account'
+        else
+        render :action =>'new'
+        end
+    end
+    
     
     def fetchaccount
-        params.require(:customer).permit(:account_no, :plans, :planname, :paytype, :plantype, :accountingmethod, :hohpresent, :headofhouseaccn)
+        params.require(:customers).permit(:account_no, :plans, :planname, :paytype, :plantype, :accountingmethod, :hohpresent, :headofhouseaccn)
     end  
 end

@@ -1,0 +1,86 @@
+        <h2>Medical System</h2>
+        <ul class="nav nav-tabs">
+        <li><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
+        <li><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
+        <li><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
+        <li class="active"><a  href="http://localhost:3000/planlist/list">Plan List</a></li>
+        </ul>
+        <br>
+        <br>
+<legend>Plan List</legend>
+<br>
+<br>
+<div class="form-group">
+    <div class = "col-md-5"></div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModal">Enter New Plan</button>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Plan</h4>
+        </div>
+        <div class="modal-body">
+         <%= form_tag({:action => 'create'},:class => "form-horizontal") do |f| %>
+             <div class = "form-group">
+              <div class = "col-md-5 col-xs-5">
+              <label class="control-label" for="textinput">Plan Id</label>
+              </div>
+              <div class = "col-md-5 col-xs-5">
+              <label class="control-label" for="textinput">Plan Name</label>
+              </div>
+             </div>
+            
+            <div class = "form-group">
+              <div class = "col-md-2 col-xs-2">
+              <%= text_field 'planlists', 'planid',:class => "form-control input-sg" %>
+              </div>
+              <div class = "col-md-10 col-xs-10">
+              <%= text_field 'planlists', 'planname',:class => "form-control input-sg" %>
+            </div>
+            </div>
+            <div class="form-group">
+            <div class = "col-md-4 col-md-offset-4">
+            <%= submit_tag "Add Plan", :class => "btn btn-success btn-block" %>
+            </div>
+            </div>
+            <% end %>  
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+<br>
+<br>
+<br>
+<div class="col-md-6 col-md-offset-3">          
+  <table class="table table-responsive table-bordered">
+     
+    <thead>
+      <tr>
+        <th>Plan Id</th>
+        <th>Plan Name</th>
+          <th>Edit Plan</th>
+          <th>Delete Plan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @pllist.each do |f|%>
+        <td class="col-md-2"><%= f.planid%></td>
+        <td class="col-md-6"><%= f.planname%></td>
+        <td class="col-md-2"><%= link_to "Edit".html_safe, {:action => 'edit', :id => f.id, method: :get}, :class => "btn btn-primary btn-block" %></td> 
+        <td class="col-md-2"><%= link_to "Delete".html_safe, {:action => 'delete', :id => f.id, method: :get}, :class => "btn btn-danger btn-block" %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+  </div>
