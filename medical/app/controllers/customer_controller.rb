@@ -11,17 +11,20 @@ class CustomerController < ApplicationController
    
     def new
         @customer = Customer.new
-        @customlist = Customer.all
+        #@customlist = Customer.all
         if params[:account_no].blank?
             puts "blank"
             @accpt = "null"
+            @fetchedaccount = "null"
         else
             puts "got values"
             @lastname = params[:lastname]
             @firstname = params[:firstname]
             @middlename = params[:middlename]
             @headofhouse = params[:headofhouse]
-            @account_no = params[:account_no]            
+            @account_no = params[:account_no]   
+            @fetchedaccount = Customer.where(account_no: @account_no)
+            puts "new value",@fetchedaccount,@account_no
         end            
             puts @lastname, @firstname, @headofhouse, @account_no        
     end
@@ -52,7 +55,8 @@ class CustomerController < ApplicationController
     end
     
     def delete
-           
+        Customer.find(params[:id]).destroy
+        redirect_to :action => "new"
     end
     
     def add
@@ -60,10 +64,12 @@ class CustomerController < ApplicationController
     end
     def insert
         @accninsert = Customer.new(fetchaccount) 
-        if @accninsert.save    
-        redirect_to :action => 'new', :controller => 'account'
+        if @accninsert.save
+            flash[:error]="Successfully added a plan"
+            redirect_to :action => 'new', :controller => 'account'
         else
-        render :action =>'new'
+            flash[:error]="Sorry try again later"
+            render :action =>'new'
         end
     end
     

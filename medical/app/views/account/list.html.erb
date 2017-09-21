@@ -1,12 +1,13 @@
         <h2>Medical System</h2>
         <ul class="nav nav-tabs">
-        <li><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
-        <li class="active"><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
-        <li><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
-        <li><a  href="http://localhost:3000/planlist/list">Plan List</a></li>
+        <li><a  href="http://192.168.50.87:3000/account/new">CreateAccount</a></li>
+        <li class="active"><a  href="http://192.168.50.87:3000/account/list">Customer Account List</a></li>
+        <li><a  href="http://192.168.50.87:3000/customer/new">Add Insurance Plan</a></li>
+        <li><a  href="http://192.168.50.87:3000/planlist/new">Plan List</a></li>
         </ul>
         <br>
         <br>
+
 <legend>Account creation</legend>
     <fieldset>
 <div class="col-md-10 col-md-offset-1">
@@ -37,7 +38,7 @@
         <td class="col-md-2"><%= f.birthdate%></td>
         <td class="col-md-2"><%= f.headofhouse.capitalize%></td>
         <td class="col-md-1"><%= link_to "Edit".html_safe, {:action => 'edit', :id => f.id, method: :get}, :class => "btn btn-primary btn-block" %></td> 
-        <td class="col-md-1"><%= link_to "Delete".html_safe, {:action => 'delete', :id => f.id, method: :get}, :class => "btn btn-danger btn-block" %></td>
+        <td class="col-md-1"><%= link_to "Delete".html_safe, {:action => 'delete', :id => f.id, method: :get}, :class => "btn btn-danger btn-block", data: { confirm: 'Are you sure?' } %></td>
       </tr>
     </tbody>
     <% end %>

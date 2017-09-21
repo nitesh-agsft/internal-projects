@@ -2,22 +2,22 @@ class PlanlistController < ApplicationController
     layout 'standard'
     
     def update
-        @plupdate = Planlist.find(params[:id])
-        if @plupdate.update_attributes(updateattributes)
-            redirect_to :action => 'list'
+        @planlist = Planlist.find(params[:id])
+        if @planlist.update_attributes(updateattributes)
+            redirect_to :action => 'new'
         else
-            render_to :action => 'edit'
+            render_to :action => 'new'
         end        
     end
     
     def edit
-        @pledit = Planlist.find(params[:id])        
+        @planlist = Planlist.find(params[:id])        
     end
     
     def create
-        @createplan = Planlist.new(createparams)
-        if @createplan.save
-            redirect_to :action => 'list'
+        @planlist = Planlist.new(createparams)
+        if @planlist.save
+            redirect_to :action => 'new'
         else
             puts "sorry error"
         end
@@ -29,15 +29,17 @@ class PlanlistController < ApplicationController
     
     def delete
         Planlist.find(params[:id]).destroy
-        redirect_to :action => "list"
+        redirect_to :action => "new"
     end
     
     def new
-        @plnew = Planlist.new
+        @planlist = Planlist.new
+        @planlistm = Planlist.all
+        
     end
     
     def list
-        @pllist = Planlist.all        
+                
     end
     
 end

@@ -52,7 +52,16 @@ class AccountController < ApplicationController
     end
     def autoassign
         puts "auto-assign" 
-        redirect_to :action => 'new'
+        
+        begin
+            #@rndno = '%05d' % rand(5** 5)
+            @rndno = rand(99999).to_s.center(5, rand(9).to_s).to_i
+            @gotval = Account.find_by_account_no(@rndno)
+        end while @gotval != nil
+            
+        puts @rndno
+        puts @gotval
+        redirect_to :action => 'new', :autoaccn => @rndno
     end  
     
 end

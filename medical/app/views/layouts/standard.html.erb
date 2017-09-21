@@ -40,15 +40,16 @@
     padding-left: 10px!important;
 }
     .nav-tabs {
-    border-bottom: 7px solid #000;
+    border-bottom: 3px solid #000;
 }
     body{
-        background-image: url("http://localhost:3000/assets/rsz_backgroundtweety.png");
+        background-image: url("http://192.168.50.87:3000/assets/rsz_backgroundtweety.png");
     }
     
     .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th, .table-bordered {
     border: 3px solid #000;
     border-top: 3px solid #000;
+    background-color: white;
     }
      
     </style>
@@ -56,6 +57,7 @@
 <body>
     
     <div class="container col-md-12">
+
         <%= yield -%>
     </div>
     

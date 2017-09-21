@@ -10,7 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require sweetalert2
 //= require bootstrap-datepicker
 //= require rails-ujs
 //= require turbolinks
+//= require sweet-alert-confirm
 //= require_tree .

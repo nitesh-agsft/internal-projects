@@ -1,3 +1,27 @@
+        <h2>Medical System</h2>
+        <ul class="nav nav-tabs">
+        <li><a  href="http://192.168.50.87:3000/account/new">CreateAccount</a></li>
+        <li><a  href="http://192.168.50.87:3000/account/list">Customer Account List</a></li>
+        <li><a  href="http://192.168.50.87:3000/customer/new">Add Insurance Plan</a></li>
+        <li><a  href="http://192.168.50.87:3000/planlist/new">Plan List</a></li>
+        </ul>
+        <br>
+        <br>
+        <% if notice.blank? %>
+        <p></p>
+        <% else %>
+        <div class="alert alert-danger">
+        <strong>Error!</strong> <%= notice %>
+        </div>
+        <% end %>
+<% if @account.errors.blank?%>
+<% if @account.errors.any? %>
+  <% @account.errors.messages.each do |message| %>
+    <% sleep 1.5 %>
+    <% controller.redirect_back fallback_location: "edit", :notice => message.last.last%>
+  <% end %>
+<% end %>
+<% end %>
 <%= form_for @account,:html =>{:class =>"form-horizontal"}, :url =>{:action => "update", :id => @account} do |f| %>
 
     <fieldset>

@@ -1,13 +1,26 @@
         <h2>Medical System</h2>
         <ul class="nav nav-tabs">
-        <li class="active"><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
-        <li><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
-        <li><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
-        <li><a  href="http://localhost:3000/planlist/list">Plan List</a></li>
+        <li class="active"><a  href="http://192.168.50.87:3000/account/new">CreateAccount</a></li>
+        <li><a  href="http://192.168.50.87:3000/account/list">Customer Account List</a></li>
+        <li><a  href="http://192.168.50.87:3000/customer/new">Add Insurance Plan</a></li>
+        <li><a  href="http://192.168.50.87:3000/planlist/new">Plan List</a></li>
         </ul>
         <br>
         <br>
+        <% if notice.blank? %>
+        <p></p>
+        <% else %>
+        <div class="alert alert-danger">
+        <strong>Error!</strong> <%= notice %>
+        </div>
+        <% end %>
 
+<% if @account.errors.any? %>
+  <% @account.errors.messages.each do |message| %>
+    <% sleep 1.5 %>
+    <% controller.redirect_back fallback_location: "new", :notice => message.last.last%>
+  <% end %>
+<% end %>
 <%= form_tag({:action => 'create'},:class => "form-horizontal") do |f| %>
 
     <fieldset class="col-md-12">
@@ -17,9 +30,9 @@
       
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="account">Account No.</label>  
+      <label class="col-md-4 control-label" for="account">Account No.<span style="color:red;"> *</span></label>  
       <div class="col-md-4">
-          <%= text_field 'accounts', 'account_no' ,:class => "form-control input-md" %>
+          <%= number_field 'accounts', 'account_no' ,:class => "form-control input-md", :required => true, :value => params[:autoaccn] %>
       <span class="help-block">Account no.</span>
       </div>
       <div class="col-md-2">
@@ -29,34 +42,34 @@
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="account_lastname">Lastname</label>  
+      <label class="col-md-4 control-label" for="account_lastname">Firstname<span style="color:red;"> *</span></label>  
       <div class="col-md-4">
-      <%= text_field 'accounts', 'lastname' ,:class => "form-control input-md"%>
-      <span class="help-block">Input your lastname</span>  
-      </div>
-    </div>
-    
-    <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="account_firstname">Firstname</label>  
-      <div class="col-md-4">
-            <%= text_field 'accounts', 'firstname' ,:class => "form-control input-md"%>
+      <%= text_field 'accounts', 'firstname' ,:class => "form-control input-md", :required => true%>
       <span class="help-block">Input your firstname</span>  
       </div>
     </div>
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="account_middlename">Middlename</label>  
+      <label class="col-md-4 control-label" for="account_firstname">Middlename</label>  
       <div class="col-md-4">
-      <%= text_field 'accounts', 'middlename' ,:class => "form-control input-md"%>
+            <%= text_field 'accounts', 'middlename' ,:class => "form-control input-md"%>
       <span class="help-block">Input your middlename</span>  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="account_middlename">Lastname<span style="color:red;"> *</span></label>  
+      <div class="col-md-4">
+      <%= text_field 'accounts', 'lastname' ,:class => "form-control input-md", :required => true%>
+      <span class="help-block">Input your lastname</span>  
       </div>
     </div>
     
     <!-- Button Drop Down -->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="account_gender">Gender</label>
+      <label class="col-md-4 control-label" for="account_gender">Gender<span style="color:red;"> *</span></label>
       <div class="col-md-4">
        
          <%= select('accounts','gender', ([['Male','Male'],['Female','Female']]),{},{:class => "form-control"}) %>
@@ -75,9 +88,9 @@
     
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="account_birthdate">Birthdate</label>  
+        <label class="col-md-4 control-label" for="account_birthdate">Birthdate<span style="color:red;"> *</span></label>  
       <div class="col-md-4">
-            <%= date_field 'accounts', 'birthdate', as: :date, value: @account.birthdate.try(:strftime,"%m/%d/%Y"), :class => "form-control input-md" %>
+            <%= date_field 'accounts', 'birthdate', as: :date, value: @account.birthdate.try(:strftime,"%m/%d/%Y"), :class => "form-control input-md", :required => true %>
       <span class="help-block">Date of birth</span>  
       </div>
     </div>

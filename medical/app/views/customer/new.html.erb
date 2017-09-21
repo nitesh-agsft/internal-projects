@@ -1,13 +1,25 @@
 <h2>Medical System</h2>
         <ul class="nav nav-tabs">
-        <li><a  href="http://localhost:3000/account/new">CreateAccount</a></li>
-        <li><a  href="http://localhost:3000/account/list">Customer Account List</a></li>
-        <li class="active"><a  href="http://localhost:3000/customer/new">Add Insurance Plan</a></li>
-        <li><a  href="http://localhost:3000/planlist/list">Plan List</a></li>
+        <li><a  href="http://192.168.50.87:3000/account/new">CreateAccount</a></li>
+        <li><a  href="http://192.168.50.87:3000/account/list">Customer Account List</a></li>
+        <li class="active"><a  href="http://192.168.50.87:3000/customer/new">Add Insurance Plan</a></li>
+        <li><a  href="http://192.168.50.87:3000/planlist/new">Plan List</a></li>
         </ul>
         <br>
         <br>
-
+        <% if notice.blank? %>
+        <p></p>
+        <% else %>
+        <div class="alert alert-danger">
+        <strong>Error!</strong> <%= notice %>
+        </div>
+        <% end %>
+<% if @customer.errors.any? %>
+  <% @customer.errors.messages.each do |message| %>
+    <% sleep 1.5 %>
+    <% controller.redirect_back fallback_location: "new", :notice => message.last.last%>
+  <% end %>
+<% end %>
 <%= form_tag({:action => 'create'},:class => "form-horizontal") do |f| %>
 
     <fieldset>
@@ -39,12 +51,23 @@
 <legend></legend>
 <% else %>
 
+
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+    
+<ul class="nav nav-tabs custom-center" style="display: flex;justify-content: center; margin-top: 10px; margin-bottom: 10px">
+        <li class="active"><a data-toggle="tab" href="#createplan">Add Plan</a></li>
+        <li><a data-toggle="tab" href="#viewplans">Customer Plan List</a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="tab-content">
+<div id="createplan" class="tab-pane fade in active">
 <%= form_tag({:action => 'insert'},:class => "form-horizontal") do |f| %>
 <fieldset>
-
-
 <legend>Plan Activate</legend>
-
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Account No</label>  
   <div class="col-md-4">
@@ -79,7 +102,7 @@
   </div>
   <label class="col-md-2 control-label">Plan Name</label>  
   <div class="col-md-4">
-  <%= text_field 'customers', 'planname' ,:class => "form-control input-mg", :readonly=>false %>
+  <%= text_field 'customers', 'planname' ,:class => "form-control input-mg", :readonly=>true %>
   <span class="help-block">Plan Name</span>  
   </div>  
 </div>
@@ -133,4 +156,47 @@
 </fieldset>
 <% end %>
 
+
+</div>
+
+<div id="viewplans" class="tab-pane fade">
+    <fieldset>
+<div class="col-md-10 col-md-offset-1">
+    
+  <table class="table table-responsive table-bordered">
+     
+    <thead>
+      <tr>
+        <th>Account No</th>
+        <th>Plan id</th>
+        <th>Plan name</th>
+        <th>Paytype</th>
+        <th>Plantype</th>
+        <th>Accountingmethod</th>
+        <th>Head of House is registered?</th>
+        <th>Head of House Account no.</th>
+        <th>Delete Account</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @fetchedaccount.each do |f|%>
+        <td class="col-md-1"><%= f.account_no%></td>
+        <td class="col-md-2"><%= f.plans.capitalize%></td>
+        <td class="col-md-2"><%= f.planname.capitalize%></td>
+        <td class="col-md-2"><%= f.paytype.capitalize%></td>
+        <td class="col-md-1"><%= f.plantype.capitalize%></td>
+        <td class="col-md-2"><%= f.accountingmethod%></td>
+        <td class="col-md-1"><%= f.hohpresent.capitalize%></td>
+        <td class="col-md-2"><%= f.headofhouseaccn%></td>  
+        <td class="col-md-1"><%= link_to "Delete".html_safe, {:action => 'delete', :id => f.id, method: :get}, :class => "btn btn-danger btn-block", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+        
+  </div>
+</fieldset>
+</div>
 <% end %>
+</div>
